@@ -1,32 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 const ResponsiveDialog = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const { visible, Page } = props;
+  const { visible, Page, point } = props;
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [open, setOpen] = useState({ visible });
+  const fullScreen = useMediaQuery(theme.breakpoints.down(point));
+  const [open, setOpen] = useState(visible);
+
+  useEffect(() => {
+    setOpen(visible);
+  }, [visible]);
 
   const close = () => {
     setOpen(false);
   };
 
   return (
-    <div>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={() => {
-          close();
-        }}
-      >
-        <Page></Page>
-      </Dialog>
-    </div>
+    <Dialog fullScreen={fullScreen} open={open} onClose={close}>
+      {Page}
+    </Dialog>
   );
 };
 
