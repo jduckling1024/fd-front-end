@@ -1,13 +1,9 @@
 import "./App.css";
 import React from "react";
-import ResponsiveDialog from "./common/dialog";
+import SignUp from "./user/sign_up";
 
 const App = () => {
-  return <ResponsiveDialog visible={true} Page={Test} />;
-};
-
-const Test = () => {
-  return <div>Test page</div>;
+  return <SignUp visible={true} />;
 };
 
 export default App;
