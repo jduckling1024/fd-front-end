@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { createUser } from "../api/user.js";
 import React, { useState } from "react";
 import ResponsiveDialog from "../common/dialog";
 import concept from "../common/color";
@@ -8,22 +9,31 @@ import concept from "../common/color";
 const SignUp = (props) => {
   const { visible } = props;
   const [open, isOpen] = useState(visible);
-  const [info, setInfo] = useState({
-    id: "",
-    password: "",
-    name: "",
-    email: "",
-  });
-
-  const join = (info) => {
-    console.log(info);
-  };
-
-  const cancel = () => {
-    isOpen(false);
-  };
 
   const SignUpPage = () => {
+    const [info, setInfo] = useState({
+      idString: "",
+      password: "",
+      name: "",
+      email: "",
+    });
+
+    const join = async () => {
+      const response = await createUser(
+        info.idString,
+        info.password,
+        info.name,
+        info.email
+      );
+
+      // FIXME - main 페이지 만든 후 수정하기
+      console.log(response);
+    };
+
+    const cancel = () => {
+      isOpen(false);
+    };
+
     return (
       <ThemeProvider theme={concept}>
         <Container>
@@ -47,7 +57,7 @@ const SignUp = (props) => {
                   size="small"
                   margin="normal"
                   onChange={(event) => {
-                    setInfo({ ...info, id: event.target.value });
+                    setInfo({ ...info, idString: event.target.value });
                   }}
                 />
               </Grid>
@@ -56,6 +66,19 @@ const SignUp = (props) => {
                   required
                   fullWidth
                   label="비밀번호"
+                  size="small"
+                  margin="normal"
+                  type="password"
+                  onChange={(event) => {
+                    setInfo({ ...info, password: event.target.value });
+                  }}
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  required
+                  fullWidth
+                  label="비밀번호 확인"
                   size="small"
                   margin="normal"
                   type="password"

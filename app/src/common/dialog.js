@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -23,10 +22,6 @@ const ResponsiveDialog = (props) => {
       {Page}
     </Dialog>
   );
-};
-
-ResponsiveDialog.PropTypes = {
-  visible: PropTypes.node.isRequired,
 };
 
 export default ResponsiveDialog;
